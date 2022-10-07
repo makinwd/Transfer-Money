@@ -1,0 +1,44 @@
+{ "users" : [
+    {
+    "id": "1",
+    "name": "George Babayan",
+    "balance": 2500000,
+    "cardNumber": "4840456023501312"
+}, {
+    "id": "2",
+    "name": "Yury Plisovsky",
+    "balance": 250000,
+    "cardNumber": "4890421555665384"
+}, {
+    "id": "3",
+    "name": "Lena Lushnikova",
+    "balance": 200000,
+    "cardNumber": "5213255030066303"
+}, {
+    "id": "4",
+    "name": "Artem Bakharev",
+    "balance": 200000,
+    "cardNumber": "5536914795676666"
+}, {
+    "id": "5",
+    "name": "Anatoly Bashkatov",
+    "balance": 150000,
+    "cardNumber": "4840566023504488"
+}, {
+    "id": "6",
+    "name": "Anna M",
+    "balance": 150000,
+    "cardNumber": "4840456023501312"
+}, {
+    "id": "7",
+    "name": "Alex U",
+    "balance": 150000,
+    "cardNumber": "2202246179151555"
+}, {
+    "id": "8",
+    "name": "Leyla Gorokh",
+    "balance": 100000,
+    "cardNumber": "5512440467581234"
+        }
+    ]
+}

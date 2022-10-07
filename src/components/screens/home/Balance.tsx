@@ -28,8 +28,8 @@ const Balance: FC = () => {
     h='full'
 >
     <Box
-        h={150}
-        w={150}
+        h={180}
+        w={180}
         pos='absolute'
         top={0}
     >
