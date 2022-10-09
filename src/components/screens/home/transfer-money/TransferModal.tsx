@@ -19,7 +19,6 @@ import {
 import { FC } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { formatCardNumber } from '../../../../function/format-card-number'
-import { user } from '../Home'
 
 interface ITransferModal {
 	isOpen: boolean
@@ -27,6 +26,8 @@ interface ITransferModal {
 }
 
 const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
+	const { user } = useProfile()
+
 	const {
 		handleSubmit,
 		register,
@@ -53,7 +54,7 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 							<Input
 								placeholder='From card'
 								size='md'
-								defaultValue={formatCardNumber(user.cardNumber)}
+								defaultValue={formatCardNumber(user?.card || 0)}
 							/>
 							<Controller
 								control={control}

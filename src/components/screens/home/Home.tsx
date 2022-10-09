@@ -10,15 +10,11 @@ import {
 import { FC } from 'react'
 import Balance from './Balance'
 import TransferModal from './transfer-money/TransferModal'
-
-export const user = {
-	name: 'John Smith',
-	balance: '$6666',
-	card: 1234567890123456
-}
+import { useProfile } from '../../hooks/useProfile';
 
 const Home: FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
+	const { user } = useProfile()
 
 	return (
 		<Box bg='black' p='6' h={'100vh'}>
@@ -26,7 +22,7 @@ const Home: FC = () => {
 				<Text fontSize='xl' color='whiteAlpha.500'>
 					Good Morning!
 				</Text>
-				<Heading fontSize='2xl'>{user.name}</Heading>
+				<Heading fontSize='2xl'>{user?.name}</Heading>
 			</Box>
 			<Balance />
 			<IconButton
