@@ -16,9 +16,14 @@ import {
 	ModalOverlay,
 	Stack
 } from '@chakra-ui/react'
-import { FC } from 'react'
+import { useMutation, QueryClient, useQueryClient } from '@tanstack/react-query'
+import { FC, useState } from 'react'
 import { SubmitHandler, useForm, Controller } from 'react-hook-form'
 import { formatCardNumber } from '../../../../function/format-card-number'
+import { useProfile } from '../../../hooks/useProfile'
+import { ITransferMoney, UserService } from '../../../../services/user.service'
+import { SuccessAlert } from './SuccessAlert'
+import { ITransferData } from './transfer.interface' 
 
 interface ITransferModal {
 	isOpen: boolean
@@ -27,15 +32,40 @@ interface ITransferModal {
 
 const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 	const { user } = useProfile()
+	const [isSuccess, setIsSuccess] = useState(false)
 
 	const {
 		handleSubmit,
 		register,
 		control,
-		formState: { errors, isSubmitting }
-	} = useForm<ITransferModal>({ mode: 'onChange', defaultValues: { amount: 0 } })
+		reset,
+		formState: { errors }
+	} = useForm<ITransferData>({ mode: 'onChange', defaultValues: { amount: 0 } })
 
-	const onSubmit: SubmitHandler<ITransferModal> = data => {}
+	const queryClient = useQueryClient()
+
+	const { mutate, isLoading,  } = useMutation(
+		['transfer money'],
+		(data: ITransferMoney) => UserService.transferMoney(data),
+		{
+			async onSuccess() {
+				setIsSuccess(false);
+				reset()
+				await queryClient.invalidateQueries(['profile'])
+
+				setTimeout(() => {setIsSuccess(false);},3000)
+			}
+		}
+	)
+
+	const onSubmit: SubmitHandler<ITransferData> = data => {
+		if (!user.card) return
+		mutate({
+			card: data.card,
+			amount: Number(data.amount),
+			fromCard: user.card
+		})
+	}
 
 	return (
 		<Modal
@@ -46,9 +76,11 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 		>
 			<ModalOverlay />
 			<ModalContent bg='#171717'>
-				<ModalHeader>Transfer your money</ModalHeader>
+				{<SuccessAlert isSuccess={isSuccess}/>}
+				<ModalHeader>Отправка ваших денег</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody>
+
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Stack spacing={3}>
 							<Input
@@ -77,7 +109,7 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 									required: 'This is required',
 									minLength: {
 										value: 16,
-										message: 'minimum length should be 16'
+										message: 'Введите корректный номер карты'
 									}
 								}}
 							/>
@@ -92,13 +124,20 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 									<Input
 										placeholder='Enter amount'
 										size='md'
-										{...register('amount', {
+										{...register(amount, {
 											required: 'This is required'
 										})}
 									/>
 								</>
 							</InputGroup>
-							<Button colorScheme='green' mr={3}>
+							<Button
+								variant='outline'
+								colorScheme='green'
+								mr={3}
+								isLoading={isLoading}
+								loadingText='Отправка денег...'
+								type='submit'
+							>
 								Send Money
 							</Button>
 						</Stack>

@@ -2,11 +2,15 @@ import { IUser } from '../types/user.interface'
 import axios from "axios";
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3000/',
     headers: {
         'Content-Type': 'application/json'
 }
 })
+
+export interface ITransferMoney {
+	amount:number, card:number, fromCard:number
+}
 
 export const UserService = {
 	async getProfile() {
@@ -26,9 +30,10 @@ export const UserService = {
 		return response.data
 	},
 
-	async transferMoney(amount: number, card: number, fromCard: number) {
+	async transferMoney({ amount, card, fromCard }) {
         const userFrom = await this.getUserByCard(fromCard)
         const UserTo = await this.getUserByCard(card)
+
 
         await instance.patch('/user/${userFrom.id}', {
             balance: userFrom.balance - amount

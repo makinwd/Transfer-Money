@@ -4,7 +4,6 @@ import {
 	Heading,
 	Text,
 	IconButton,
-	useBoolean,
 	useDisclosure
 } from '@chakra-ui/react'
 import { FC } from 'react'
