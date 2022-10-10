@@ -2,7 +2,6 @@ import {
 	Button,
 	FormControl,
 	FormErrorMessage,
-	FormLabel,
 	Input,
 	InputGroup,
 	InputLeftElement,
@@ -59,6 +58,8 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 	)
 
 	const onSubmit: SubmitHandler<ITransferData> = data => {
+		if (user === undefined)
+		return
 		if (!user.card) return
 		mutate({
 			card: data.card,
@@ -124,7 +125,7 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 									<Input
 										placeholder='Enter amount'
 										size='md'
-										{...register(amount, {
+										{...register('amount', {
 											required: 'This is required'
 										})}
 									/>

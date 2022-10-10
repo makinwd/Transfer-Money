@@ -14,7 +14,7 @@ export interface ITransferMoney {
 
 export const UserService = {
 	async getProfile() {
-		const response = await instance.get<IUser[]>('/users/1')
+		const response = await instance.get<IUser>('/users/1')
 		return response.data
 	},
 
@@ -24,22 +24,22 @@ export const UserService = {
 	},
 
 	async getUserByCard(card: number) {
-		const response = await instance.get<IUser[]>('/users/', {
+		const response = await instance.get<IUser>('/users/', {
 			params: { card }
 		})
 		return response.data
 	},
 
-	async transferMoney({ amount, card, fromCard }) {
+	async transferMoney({ amount, card, fromCard }: ITransferMoney) {
         const userFrom = await this.getUserByCard(fromCard)
         const UserTo = await this.getUserByCard(card)
 
 
-        await instance.patch('/user/${userFrom.id}', {
+        await instance.patch('/users/${userFrom.id}', {
             balance: userFrom.balance - amount
         })
 
-        await instance.patch('/user/${userFrom.id}', {
+        await instance.patch('/users/${userFrom.id}', {
             balance: UserTo.balance + amount
         })
 	},
