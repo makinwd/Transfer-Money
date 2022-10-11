@@ -74,11 +74,11 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 			onClose={onClose}
 			size='full'
 			motionPreset='slideInRight'
-		>
+			>
 			<ModalOverlay />
 			<ModalContent bg='#171717'>
-				{<SuccessAlert isSuccess={isSuccess}/>}
 				<ModalHeader>Отправка ваших денег</ModalHeader>
+			{/* {<SuccessAlert isSuccess={isSuccess}/>} */}
 				<ModalCloseButton />
 				<ModalBody>
 
@@ -88,6 +88,7 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 								placeholder='From card'
 								size='md'
 								defaultValue={formatCardNumber(user?.card || 0)}
+								disabled
 							/>
 							<Controller
 								control={control}
@@ -99,8 +100,8 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 											size='md'
 											placeholder='To card'
 											value={formatCardNumber(value)}
-											onChange={e => onChange(e.target.value)}
-										/>
+											onChange={e => onChange(e.target.value)}										
+											/>
 										<FormErrorMessage>
 											{errors.card && errors.card?.message}
 										</FormErrorMessage>
@@ -113,32 +114,32 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 										message: 'Введите корректный номер карты'
 									}
 								}}
-							/>
+								/>
 							<InputGroup>
 								<>
 									<InputLeftElement
 										pointerEvents='none'
 										color='gray.300'
 										fontSize='1.2em'
-										children='$'
-									/>
+										
+										/>
 									<Input
 										placeholder='Enter amount'
 										size='md'
 										{...register('amount', {
 											required: 'This is required'
 										})}
-									/>
+										/>
 								</>
 							</InputGroup>
 							<Button
 								variant='outline'
 								colorScheme='green'
-								mr={3}
+								mr={6}
 								isLoading={isLoading}
 								loadingText='Отправка денег...'
 								type='submit'
-							>
+								>
 								Send Money
 							</Button>
 						</Stack>

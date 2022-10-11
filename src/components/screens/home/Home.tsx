@@ -4,7 +4,7 @@ import {
 	Heading,
 	Text,
 	IconButton,
-	useDisclosure
+	useDisclosure,
 } from '@chakra-ui/react'
 import { FC } from 'react'
 import Balance from './Balance'
@@ -14,7 +14,7 @@ import { useProfile } from '../../hooks/useProfile';
 const Home: FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const { user } = useProfile()
-
+	
 	return (
 		<Box bg='black' p='6' h={'100vh'}>
 			<Box>
@@ -27,7 +27,7 @@ const Home: FC = () => {
 			<IconButton
 				m='auto'
 				display='block'
-				top={-4}
+				top={8}
 				mt={8}
 				variant='outline'
 				colorScheme='white'
