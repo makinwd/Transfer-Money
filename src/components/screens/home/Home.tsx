@@ -1,37 +1,43 @@
 import { ArrowRightIcon } from '@chakra-ui/icons'
-import { Box, Heading, Text, IconButton, useBoolean } from '@chakra-ui/react'
+import {
+	Box,
+	Heading,
+	Text,
+	IconButton,
+	useDisclosure,
+} from '@chakra-ui/react'
 import { FC } from 'react'
 import Balance from './Balance'
-
-export const user = {
-	name: 'John Smith',
-	balance: '$6666'
-}
+import TransferModal from './transfer-money/TransferModal'
+import { useProfile } from '../../hooks/useProfile';
 
 const Home: FC = () => {
-	const [modal, setModal] = useBoolean(false)
+	const { isOpen, onOpen, onClose } = useDisclosure()
+	const { user } = useProfile()
 	
 	return (
-		<Box bg='black'>
+		<Box bg='black' p='6' h={'100vh'}>
 			<Box>
 				<Text fontSize='xl' color='whiteAlpha.500'>
 					Good Morning!
 				</Text>
-				<Heading fontSize='2xl'>{user.name}</Heading>
+				<Heading fontSize='2xl'>{user?.name}</Heading>
 			</Box>
 			<Balance />
 			<IconButton
 				m='auto'
 				display='block'
-				top={-6}
+				top={8}
 				mt={8}
 				variant='outline'
 				colorScheme='white'
 				aria-label='Transfer'
 				fontSize='15px'
 				icon={<ArrowRightIcon />}
-				onClick={setModal.on}
+				onClick={onOpen}
 			/>
+
+			<TransferModal isOpen={isOpen} onClose={onClose} />
 		</Box>
 	)
 }

@@ -6,16 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "npx tsc -p tsconfig.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.11",
     "@chakra-ui/react": "^2.3.5",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@tanstack/react-query": "^4.10.3",
+    "axios": "^1.1.2",
     "framer-motion": "^6.5.1",
+    "json-server": "^0.17.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.37.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

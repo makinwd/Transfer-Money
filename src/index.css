@@ -1,8 +1,27 @@
 body {
-  color:black
+	color: black;
 }
 
 text {
-  font-size: x-large;
-  color: antiquewhite;
+	font-size: x-large;
+	color: antiquewhite;
 }
+
+.alert-custom {
+	animation: zoomIn 0.8s;
+}
+
+@keyframes zoomIn {
+	from {
+		opacity: 0.2;
+		transform: scale(0.5);
+	}
+
+	90% {
+	}
+
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+} ;
