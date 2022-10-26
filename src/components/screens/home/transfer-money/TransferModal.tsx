@@ -100,7 +100,7 @@ const TransferModal: FC<ITransferModal> = ({ isOpen, onClose }) => {
 											size='md'
 											placeholder='To card'
 											value={formatCardNumber(value)}
-											onChange={e => onChange(e.target.value)}										
+											onChange={e => onChange(Number(e.target.value.replaceAll(' ', '') || 0))}										
 											/>
 										<FormErrorMessage>
 											{errors.card && errors.card?.message}
